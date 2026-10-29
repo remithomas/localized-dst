@@ -43,4 +43,4 @@ TypeScript stays on 6.x because `ts-jest` doesn't support TypeScript 7 yet (peer
 
 - **Southern hemisphere:** a year's entry spans two calendar years. For example, Victoria's `2012` entry runs from Oct 2012 to Mar 2013. `isDst` only looks up `getYear(date)`, so January–March dates are checked against the period that starts *later* that year and come back `false`.
 - **`refs: false` (no DST):** `isDst` treats this the same as a missing year. It warns and returns `false`, or throws when `failIfNotExisting` is set.
-- **Hawaii key:** the code uses `USA.HAWAII`, while the README table says `USA.HAWAI`.
+- **Generating data:** generate DST dates from the IANA tz database bundled in `moment-timezone` (`moment.tz.zone(tz).untils`/`offsets`) instead of typing them by hand. Write each transition as a local wall-clock time using the offset in effect *before* it, so the end time is in DST time (for example, France ends at `03:00:00`).

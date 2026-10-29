@@ -193,6 +193,38 @@ describe('isDst functions', () => {
       expect(expected).toBeFalsy();
     });
 
+    it('should be in DST for USA the 2012-07-24 00:00:00', () => {
+      const expected = isDst(new Date('2012-07-24 00:00:00'), {
+        location: 'USA',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should NOT be in DST for USA the 2012-12-24 00:00:00', () => {
+      const expected = isDst(new Date('2012-12-24 00:00:00'), {
+        location: 'USA',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeFalsy();
+    });
+
+    it('should be in DST for Paris the 1985-07-24 00:00:00', () => {
+      const expected = isDst(new Date('1985-07-24 00:00:00'), {
+        location: 'FRA.METROPOLE.PARIS',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should NOT be in DST for Paris the 1985-10-15 00:00:00', () => {
+      const expected = isDst(new Date('1985-10-15 00:00:00'), {
+        location: 'FRA.METROPOLE.PARIS',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeFalsy();
+    });
+
     it('should NOT be in DST for Victoria the 2012-07-24 00:00:00', () => {
       const expected = isDst(new Date('2012-07-24 00:00:00'), {
         location: 'AUS.VICTORIA'
