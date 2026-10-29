@@ -3,6 +3,10 @@
     "module": "commonjs",
     "target": "es2015",
     "declaration": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "types": ["jest"],
+    "rootDir": "./src",
     "outDir": "./dist"
   },
   "include": ["src/**/*"],

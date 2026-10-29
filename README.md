@@ -46,11 +46,12 @@ console.log(
 
 | Country   | State     | City      | Key                        | Years     |
 | --------- | --------- | --------- | -------------------------- | --------- |
-| Australia | Victoria  | Melbourne | `AUS.VICTORIA.MELBOURNE`   | 2000-2030 |
+| Australia | Victoria  | Melbourne | `AUS.VICTORIA.MELBOURNE`   | 1980-2030 |
 | Canada    | Quebec    | Montreal  | `CAN.QUEBEC.MONTREAL`      | 1980-2030 |
-|           | Ontario   | Toronto   | `CAN.ONTARIO.TORONTO`      | 2000-2030 |
-| France    | Metropole | Paris     | `FRA.METROPOLE.PARIS`      | 2000-2030 |
-| USA       | HAWAI     |           | `USA.HAWAI`                | all       |
+|           | Ontario   | Toronto   | `CAN.ONTARIO.TORONTO`      | 1980-2030 |
+| France    | Metropole | Paris     | `FRA.METROPOLE.PARIS`      | 1980-2030 |
+| USA       |           |           | `USA` (Eastern time)       | 1980-2030 |
+|           | Hawaii    |           | `USA.HAWAII` (no DST)      | all       |
 
 ## How to participate
 

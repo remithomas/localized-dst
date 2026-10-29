@@ -93,8 +93,58 @@ describe('isDst functions', () => {
         `City (FOOBAR) doesn't exist for "CAN/QUEBEC"`
       );
     });
+
+    it('should get Ontario default refs', () => {
+      const expected = getDstRef('CAN.ONTARIO', true);
+
+      expect(expected).toHaveProperty('timezone', 'America/Toronto');
+      expect(expected).toHaveProperty('refs');
+    });
+
+    it('should get Toronto default refs', () => {
+      const expected = getDstRef('CAN.ONTARIO.TORONTO', true);
+
+      expect(expected).toHaveProperty('timezone', 'America/Toronto');
+      expect(expected.refs[2000]).toEqual([
+        '2000-04-02 02:00:00',
+        '2000-10-29 02:00:00'
+      ]);
+    });
+
+    it('should use the matching year in Canadian refs before 2000', () => {
+      const { refs } = getDstRef('CAN');
+
+      for (let year = 1980; year < 2000; year++) {
+        expect(refs[year][0].startsWith(`${year}-`)).toBe(true);
+        expect(refs[year][1].startsWith(`${year}-`)).toBe(true);
+      }
+    });
   });
   describe('isDst', () => {
+    it('should be in DST for Toronto the 2012-07-24 00:00:00', () => {
+      const expected = isDst(new Date('2012-07-24 00:00:00'), {
+        location: 'CAN.ONTARIO.TORONTO',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should be in DST for Montreal the 1985-07-24 00:00:00', () => {
+      const expected = isDst(new Date('1985-07-24 00:00:00'), {
+        location: 'CAN.QUEBEC.MONTREAL',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should be in DST for Montreal the 1990-10-26 12:00:00', () => {
+      const expected = isDst(new Date('1990-10-26 12:00:00'), {
+        location: 'CAN.QUEBEC.MONTREAL',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
     it('should NOT be in DST for Canada the 2012-12-24 00:00:00', () => {
       const expected = isDst(new Date('2012-12-24 00:00:00'), {
         location: 'CAN'
@@ -139,6 +189,38 @@ describe('isDst functions', () => {
     it('should NO be in DST with state with no DST', () => {
       const expected = isDst(new Date('2012-08-24 00:00:00'), {
         location: 'USA.HAWAII'
+      });
+      expect(expected).toBeFalsy();
+    });
+
+    it('should be in DST for USA the 2012-07-24 00:00:00', () => {
+      const expected = isDst(new Date('2012-07-24 00:00:00'), {
+        location: 'USA',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should NOT be in DST for USA the 2012-12-24 00:00:00', () => {
+      const expected = isDst(new Date('2012-12-24 00:00:00'), {
+        location: 'USA',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeFalsy();
+    });
+
+    it('should be in DST for Paris the 1985-07-24 00:00:00', () => {
+      const expected = isDst(new Date('1985-07-24 00:00:00'), {
+        location: 'FRA.METROPOLE.PARIS',
+        failIfNotExisting: true
+      });
+      expect(expected).toBeTruthy();
+    });
+
+    it('should NOT be in DST for Paris the 1985-10-15 00:00:00', () => {
+      const expected = isDst(new Date('1985-10-15 00:00:00'), {
+        location: 'FRA.METROPOLE.PARIS',
+        failIfNotExisting: true
       });
       expect(expected).toBeFalsy();
     });
