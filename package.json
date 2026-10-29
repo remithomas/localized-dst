@@ -30,6 +30,14 @@
     "Adrian EDWARDS"
   ],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remithomas/localized-dst.git"
+  },
+  "bugs": {
+    "url": "https://github.com/remithomas/localized-dst/issues"
+  },
+  "homepage": "https://github.com/remithomas/localized-dst#readme",
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "eslint-config-prettier": "^10.1.8",
